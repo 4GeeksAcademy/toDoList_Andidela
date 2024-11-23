@@ -23,7 +23,7 @@ const ToDo = () => {
         }
         )
             .then(response => response.json())
-            .then((data) => setTodos([...todos, { label: input, done: false }]))
+            .then((data) => setTodos([...todos, { label: input, done: false }ç]))
         obtenerLista()
         setInput("")
         // .catch(error => console.log(error))
