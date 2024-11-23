@@ -23,7 +23,7 @@ const ToDo = () => {
         }
         )
             .then(response => response.json())
-            .then((data) => setTodos([...todos, { label: input, done: false }ç]))
+            .then((data) => setTodos([...todos, data]))
         obtenerLista()
         setInput("")
         // .catch(error => console.log(error))
@@ -46,9 +46,19 @@ const ToDo = () => {
             .catch((error) => console.error("Error al borrar:", error));
     }
     
-
+    function crearUsuario() {
+        fetch('https://playground.4geeks.com/todo/users/AtiD', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }
+        )
+        // .catch(error => console.log(error))
+    }
 
 useEffect(() => {
+    crearUsuario()
     obtenerLista()
 }, [])
 
@@ -56,13 +66,14 @@ return (
     <div className="paper" style={{ width: 500, marginLeft: 400, marginTop: 100 }}>
         <input placeholder="Agregar tarea" value={input} type='text' onChange={(e) => setInput(e.target.value)} />
         <button type="button" className="btn btn-primary" onClick={agregarLista}>Agregar tarea</button>
+        {todos.length > 0 ? (
         <ul>
             {todos.map((item, index) => {
                 return (
                     <li key={index}>{item.label} <span onClick={() => deleteTarea(item.id)}>x</span></li>
                 )
             })}
-        </ul>
+        </ul>):(<p>No hay tareas en la lista</p>)}
     </div>
 );
 };
